@@ -27,7 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 import com.example.t2rickmorty.ui.data.RetroFitInstance
 import com.example.t2rickmorty.ui.model.Character
 
@@ -38,7 +38,7 @@ fun ListScreen(onCharacterClick : (Character) -> Unit){
     }
 
     LaunchedEffect(Unit) {
-        val fetchedCharacters = RetroFitInstance.api.getCharacter().body()?.result
+        val fetchedCharacters = RetroFitInstance.api.getCharacter().body()?.results
         println("Fetched characters: $fetchedCharacters")
         if(fetchedCharacters != null){
             characters = fetchedCharacters
@@ -68,7 +68,7 @@ fun CharacterCard(character: Character, onClick: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = rememberAsyncImagePainter(character.image),
+                painter = rememberImagePainter(data = character.image),
                         contentDescription = null,
                 modifier = Modifier
                     .size(64.dp)
